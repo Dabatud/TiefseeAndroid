@@ -1,0 +1,195 @@
+package com.tiefsee.android.util
+
+/** Словари интерфейса: English / Русский / 繁體中文. */
+object Strings {
+
+    val en = mapOf(
+        "ok" to "OK", "cancel" to "Cancel", "close" to "Close", "back" to "Back", "menu" to "Menu", "more" to "More",
+        "search" to "Search", "sort" to "Sort", "settings" to "Settings", "about" to "About", "error" to "Error",
+        "done" to "Done", "open" to "Open", "edit" to "Edit", "save" to "Save", "copy" to "Copy", "copyAll" to "Copy all",
+        "copied" to "Copied", "refresh" to "Refresh", "info" to "Information", "showAll" to "Show all",
+
+        "internal" to "Internal storage", "storage" to "Storage", "places" to "Places", "favorites" to "Favorites",
+        "recent" to "Recent", "addFavorite" to "Add to favorites", "removeFavorite" to "Remove from favorites",
+        "favoriteAdded" to "Added to favorites", "favoriteRemoved" to "Removed from favorites",
+        "newFolder" to "New folder", "goUp" to "Go to folder", "filterHint" to "Filter by name…",
+        "emptyFolder" to "No images in this folder", "nothingFound" to "Nothing found", "noAccess" to "No access to this folder",
+        "noImages" to "No images here", "showAllFiles" to "Show all files", "showHidden" to "Show hidden files",
+        "showAllFilesHint" to "Also list files that Tiefsee can't open",
+        "sortFiles" to "Sort files", "sort_name" to "Name", "sort_date" to "Date modified", "sort_size" to "Size",
+        "sort_type" to "Type", "sort_random" to "Random",
+        "quickLook" to "Quick look", "filesCount" to "%d files",
+
+        "share" to "Share", "openWith" to "Open with", "setAs" to "Set as wallpaper / contact photo",
+        "rename" to "Rename", "renameFailed" to "Could not rename", "delete" to "Delete",
+        "deleteConfirm" to "Delete \"%s\"?", "deleteFolderConfirm" to "Delete folder \"%s\" with all its contents?",
+        "deleted" to "Deleted", "deleteFailed" to "Could not delete", "copyPath" to "Copy path",
+        "showInFolder" to "Show in folder", "noApp" to "No app can handle this",
+
+        "rotateLeft" to "Rotate left", "rotateRight" to "Rotate right", "flip" to "Flip horizontally",
+        "zoomToggle" to "Fit / 100%", "zoom100" to "Zoom 100%", "bulkView" to "Bulk view", "columns" to "Columns",
+        "slideshow" to "Slideshow", "slideshowStarted" to "Slideshow started. Tap to stop",
+        "hideStrip" to "Hide file panel", "showStrip" to "Show file panel",
+        "cannotOpen" to "Cannot open file", "cannotPlay" to "Cannot play this video", "opening" to "Opening…",
+        "archiveEmpty" to "No images in the archive", "downloading" to "Downloading image…",
+
+        "imageSearch" to "Image search", "uploading" to "Uploading image…", "imageSearchFailed" to "Image search failed",
+        "noEngines" to "Enable search engines in settings", "searchEngines" to "Search engines",
+        "imageSearchNote" to "As in Tiefsee for Windows, the image is reduced and uploaded to the temporary server of the Tiefsee author, then the search page opens with its link.",
+
+        "aiPrompt" to "AI prompt", "file" to "File", "location" to "Location", "openMap" to "Open map",
+        "name" to "Name", "path" to "Folder", "size" to "Size", "resolution" to "Resolution", "modified" to "Modified", "type" to "Type",
+
+        "goToPage" to "Go to page", "slide" to "Slide",
+        "saved" to "Saved", "saveFailed" to "Could not save", "readOnly" to "read-only",
+        "fileTooLarge" to "File is too large — opened read-only (first 8 MB)",
+        "unsaved" to "Unsaved changes", "unsavedText" to "Discard changes?", "discard" to "Discard",
+        "fontBigger" to "Larger text", "fontSmaller" to "Smaller text", "wordWrap" to "Word wrap",
+
+        "appearance" to "Appearance", "language" to "Language", "langAuto" to "System", "theme" to "Theme",
+        "themeDark" to "Dark", "themeLight" to "Light", "themeSystem" to "System", "accent" to "Accent color",
+        "viewerBg" to "Viewer background", "bgBlack" to "Black", "bgTheme" to "Theme color", "bgChecker" to "Checkerboard", "bgWhite" to "White",
+        "viewer" to "Viewer", "zoomMode" to "Default zoom", "zoomFit" to "Fit to screen", "zoomFitShrink" to "Fit, don't enlarge small images",
+        "zoomWidth" to "Fit width (manga)", "zoomHeight" to "Fit height", "zoomOriginal" to "Original size (100%)",
+        "smoothing" to "Smooth scaling", "smoothingHint" to "Off — sharp pixels when zoomed in (pixel art)",
+        "fileStrip" to "File panel at the bottom", "keepScreenOn" to "Keep screen on while viewing",
+        "confirmDelete" to "Confirm deletion", "slideshowInterval" to "Slideshow interval", "seconds" to "%d s",
+        "videoAutoplay" to "Autoplay video", "videoLoop" to "Loop video", "bulkGap" to "Gaps in bulk view",
+        "files" to "Files", "folderPreviews" to "Folder previews", "openLastFolder" to "Open last folder on start",
+        "sortFolders" to "Sort folders by", "sortFoldersDesc" to "Folders in reverse order",
+        "gridSize" to "Thumbnail size", "gridSmall" to "Small", "gridMedium" to "Medium", "gridLarge" to "Large", "gridHuge" to "Huge",
+        "clearThumbs" to "Clear thumbnail cache", "clearArchive" to "Clear archive & download cache",
+        "aboutText" to "Unofficial Android version of Tiefsee — the open-source image viewer by hbl917070 (MIT license).",
+
+        "permTitle" to "Access to files",
+        "permText" to "Tiefsee needs access to all files to browse folders, show neighbouring images, open archives, rename and delete files.",
+        "permButton" to "Grant access",
+    )
+
+    val ru = mapOf(
+        "ok" to "ОК", "cancel" to "Отмена", "close" to "Закрыть", "back" to "Назад", "menu" to "Меню", "more" to "Ещё",
+        "search" to "Поиск", "sort" to "Сортировка", "settings" to "Настройки", "about" to "О программе", "error" to "Ошибка",
+        "done" to "Готово", "open" to "Открыть", "edit" to "Редактировать", "save" to "Сохранить", "copy" to "Копировать",
+        "copyAll" to "Копировать всё", "copied" to "Скопировано", "refresh" to "Обновить", "info" to "Информация",
+        "showAll" to "Показать полностью",
+
+        "internal" to "Внутренняя память", "storage" to "Хранилище", "places" to "Места", "favorites" to "Избранное",
+        "recent" to "Недавние", "addFavorite" to "Добавить в избранное", "removeFavorite" to "Убрать из избранного",
+        "favoriteAdded" to "Добавлено в избранное", "favoriteRemoved" to "Убрано из избранного",
+        "newFolder" to "Новая папка", "goUp" to "Перейти в папку", "filterHint" to "Фильтр по имени…",
+        "emptyFolder" to "В папке нет изображений", "nothingFound" to "Ничего не найдено", "noAccess" to "Нет доступа к папке",
+        "noImages" to "Здесь нет изображений", "showAllFiles" to "Показывать все файлы", "showHidden" to "Показывать скрытые",
+        "showAllFilesHint" to "В том числе файлы, которые Tiefsee не открывает",
+        "sortFiles" to "Сортировка файлов", "sort_name" to "Имя", "sort_date" to "Дата изменения", "sort_size" to "Размер",
+        "sort_type" to "Тип", "sort_random" to "Случайно",
+        "quickLook" to "Быстрый просмотр", "filesCount" to "Файлов: %d",
+
+        "share" to "Поделиться", "openWith" to "Открыть с помощью", "setAs" to "Установить как обои / фото контакта",
+        "rename" to "Переименовать", "renameFailed" to "Не удалось переименовать", "delete" to "Удалить",
+        "deleteConfirm" to "Удалить «%s»?", "deleteFolderConfirm" to "Удалить папку «%s» со всем содержимым?",
+        "deleted" to "Удалено", "deleteFailed" to "Не удалось удалить", "copyPath" to "Копировать путь",
+        "showInFolder" to "Показать в папке", "noApp" to "Нет подходящего приложения",
+
+        "rotateLeft" to "Повернуть влево", "rotateRight" to "Повернуть вправо", "flip" to "Отразить",
+        "zoomToggle" to "Вписать / 100%", "zoom100" to "Масштаб 100%", "bulkView" to "Лента (Bulk View)", "columns" to "Колонки",
+        "slideshow" to "Слайд-шоу", "slideshowStarted" to "Слайд-шоу запущено. Нажмите, чтобы остановить",
+        "hideStrip" to "Скрыть панель файлов", "showStrip" to "Показать панель файлов",
+        "cannotOpen" to "Не удалось открыть файл", "cannotPlay" to "Не удалось воспроизвести видео", "opening" to "Открытие…",
+        "archiveEmpty" to "В архиве нет изображений", "downloading" to "Загрузка изображения…",
+
+        "imageSearch" to "Поиск по картинке", "uploading" to "Загрузка картинки…", "imageSearchFailed" to "Не удалось выполнить поиск",
+        "noEngines" to "Включите поисковики в настройках", "searchEngines" to "Поисковики",
+        "imageSearchNote" to "Как и в Tiefsee для Windows, картинка уменьшается и загружается на временный сервер автора Tiefsee, затем открывается страница поиска по её ссылке.",
+
+        "aiPrompt" to "AI-промпт", "file" to "Файл", "location" to "Местоположение", "openMap" to "Открыть карту",
+        "name" to "Имя", "path" to "Папка", "size" to "Размер", "resolution" to "Разрешение", "modified" to "Изменён", "type" to "Тип",
+
+        "goToPage" to "Перейти к странице", "slide" to "Слайд",
+        "saved" to "Сохранено", "saveFailed" to "Не удалось сохранить", "readOnly" to "только чтение",
+        "fileTooLarge" to "Файл слишком большой — открыт только для чтения (первые 8 МБ)",
+        "unsaved" to "Несохранённые изменения", "unsavedText" to "Отменить изменения?", "discard" to "Не сохранять",
+        "fontBigger" to "Крупнее", "fontSmaller" to "Мельче", "wordWrap" to "Перенос строк",
+
+        "appearance" to "Оформление", "language" to "Язык", "langAuto" to "Как в системе", "theme" to "Тема",
+        "themeDark" to "Тёмная", "themeLight" to "Светлая", "themeSystem" to "Как в системе", "accent" to "Акцентный цвет",
+        "viewerBg" to "Фон просмотрщика", "bgBlack" to "Чёрный", "bgTheme" to "Цвет темы", "bgChecker" to "Шахматка", "bgWhite" to "Белый",
+        "viewer" to "Просмотр", "zoomMode" to "Масштаб по умолчанию", "zoomFit" to "Вписать в экран", "zoomFitShrink" to "Вписать, не увеличивая маленькие",
+        "zoomWidth" to "По ширине (манга)", "zoomHeight" to "По высоте", "zoomOriginal" to "Оригинальный размер (100%)",
+        "smoothing" to "Сглаживание", "smoothingHint" to "Выкл. — чёткие пиксели при увеличении (пиксель-арт)",
+        "fileStrip" to "Панель файлов внизу", "keepScreenOn" to "Не гасить экран при просмотре",
+        "confirmDelete" to "Подтверждать удаление", "slideshowInterval" to "Интервал слайд-шоу", "seconds" to "%d с",
+        "videoAutoplay" to "Автовоспроизведение видео", "videoLoop" to "Повтор видео", "bulkGap" to "Отступы в ленте",
+        "files" to "Файлы", "folderPreviews" to "Превью папок", "openLastFolder" to "Открывать последнюю папку",
+        "sortFolders" to "Сортировка папок", "sortFoldersDesc" to "Папки в обратном порядке",
+        "gridSize" to "Размер миниатюр", "gridSmall" to "Маленькие", "gridMedium" to "Средние", "gridLarge" to "Большие", "gridHuge" to "Огромные",
+        "clearThumbs" to "Очистить кэш миниатюр", "clearArchive" to "Очистить кэш архивов и загрузок",
+        "aboutText" to "Неофициальная Android-версия Tiefsee — открытого просмотрщика изображений от hbl917070 (лицензия MIT).",
+
+        "permTitle" to "Доступ к файлам",
+        "permText" to "Tiefsee нужен доступ ко всем файлам, чтобы просматривать папки, листать соседние изображения, открывать архивы, переименовывать и удалять файлы.",
+        "permButton" to "Разрешить доступ",
+    )
+
+    val zh = mapOf(
+        "ok" to "確定", "cancel" to "取消", "close" to "關閉", "back" to "返回", "menu" to "選單", "more" to "更多",
+        "search" to "搜尋", "sort" to "排序", "settings" to "設定", "about" to "關於", "error" to "錯誤",
+        "done" to "完成", "open" to "開啟", "edit" to "編輯", "save" to "儲存", "copy" to "複製", "copyAll" to "全部複製",
+        "copied" to "已複製", "refresh" to "重新整理", "info" to "資訊", "showAll" to "顯示全部",
+
+        "internal" to "內部儲存空間", "storage" to "儲存空間", "places" to "位置", "favorites" to "我的最愛",
+        "recent" to "最近", "addFavorite" to "加入我的最愛", "removeFavorite" to "從我的最愛移除",
+        "favoriteAdded" to "已加入我的最愛", "favoriteRemoved" to "已從我的最愛移除",
+        "newFolder" to "新增資料夾", "goUp" to "前往資料夾", "filterHint" to "依名稱篩選…",
+        "emptyFolder" to "此資料夾沒有圖片", "nothingFound" to "找不到結果", "noAccess" to "無法存取此資料夾",
+        "noImages" to "這裡沒有圖片", "showAllFiles" to "顯示所有檔案", "showHidden" to "顯示隱藏檔案",
+        "showAllFilesHint" to "包含 Tiefsee 無法開啟的檔案",
+        "sortFiles" to "檔案排序", "sort_name" to "名稱", "sort_date" to "修改日期", "sort_size" to "大小",
+        "sort_type" to "類型", "sort_random" to "隨機",
+        "quickLook" to "快速預覽", "filesCount" to "%d 個檔案",
+
+        "share" to "分享", "openWith" to "選擇其他應用程式開啟", "setAs" to "設為桌布 / 聯絡人相片",
+        "rename" to "重新命名", "renameFailed" to "無法重新命名", "delete" to "刪除",
+        "deleteConfirm" to "刪除「%s」？", "deleteFolderConfirm" to "刪除資料夾「%s」及其所有內容？",
+        "deleted" to "已刪除", "deleteFailed" to "無法刪除", "copyPath" to "複製路徑",
+        "showInFolder" to "在資料夾中顯示", "noApp" to "沒有可處理的應用程式",
+
+        "rotateLeft" to "向左旋轉", "rotateRight" to "向右旋轉", "flip" to "水平翻轉",
+        "zoomToggle" to "適合視窗 / 100%", "zoom100" to "縮放 100%", "bulkView" to "大量瀏覽", "columns" to "欄數",
+        "slideshow" to "幻燈片", "slideshowStarted" to "幻燈片已開始，點擊以停止",
+        "hideStrip" to "隱藏檔案面板", "showStrip" to "顯示檔案面板",
+        "cannotOpen" to "無法開啟檔案", "cannotPlay" to "無法播放此影片", "opening" to "開啟中…",
+        "archiveEmpty" to "壓縮檔中沒有圖片", "downloading" to "下載圖片中…",
+
+        "imageSearch" to "以圖搜圖", "uploading" to "上傳圖片中…", "imageSearchFailed" to "圖片搜尋失敗",
+        "noEngines" to "請在設定中啟用搜尋引擎", "searchEngines" to "搜尋引擎",
+        "imageSearchNote" to "與 Windows 版 Tiefsee 相同，圖片會先壓縮並上傳到 Tiefsee 作者的暫存伺服器，再以其網址開啟搜尋頁面。",
+
+        "aiPrompt" to "AI 提示詞", "file" to "檔案", "location" to "位置", "openMap" to "開啟地圖",
+        "name" to "名稱", "path" to "資料夾", "size" to "大小", "resolution" to "解析度", "modified" to "修改時間", "type" to "類型",
+
+        "goToPage" to "跳至頁面", "slide" to "投影片",
+        "saved" to "已儲存", "saveFailed" to "無法儲存", "readOnly" to "唯讀",
+        "fileTooLarge" to "檔案過大，已以唯讀模式開啟（前 8 MB）",
+        "unsaved" to "尚未儲存的變更", "unsavedText" to "要放棄變更嗎？", "discard" to "放棄",
+        "fontBigger" to "放大文字", "fontSmaller" to "縮小文字", "wordWrap" to "自動換行",
+
+        "appearance" to "外觀", "language" to "語言", "langAuto" to "跟隨系統", "theme" to "主題",
+        "themeDark" to "深色", "themeLight" to "淺色", "themeSystem" to "跟隨系統", "accent" to "強調色",
+        "viewerBg" to "檢視背景", "bgBlack" to "黑色", "bgTheme" to "主題色", "bgChecker" to "棋盤格", "bgWhite" to "白色",
+        "viewer" to "檢視", "zoomMode" to "預設縮放", "zoomFit" to "適合視窗", "zoomFitShrink" to "適合視窗（不放大小圖）",
+        "zoomWidth" to "適合寬度（漫畫）", "zoomHeight" to "適合高度", "zoomOriginal" to "原始大小 (100%)",
+        "smoothing" to "平滑縮放", "smoothingHint" to "關閉時放大會顯示清晰像素（像素畫）",
+        "fileStrip" to "底部檔案面板", "keepScreenOn" to "檢視時保持螢幕開啟",
+        "confirmDelete" to "刪除前確認", "slideshowInterval" to "幻燈片間隔", "seconds" to "%d 秒",
+        "videoAutoplay" to "自動播放影片", "videoLoop" to "循環播放影片", "bulkGap" to "大量瀏覽間距",
+        "files" to "檔案", "folderPreviews" to "資料夾預覽", "openLastFolder" to "啟動時開啟上次的資料夾",
+        "sortFolders" to "資料夾排序", "sortFoldersDesc" to "資料夾反向排序",
+        "gridSize" to "縮圖大小", "gridSmall" to "小", "gridMedium" to "中", "gridLarge" to "大", "gridHuge" to "特大",
+        "clearThumbs" to "清除縮圖快取", "clearArchive" to "清除壓縮檔與下載快取",
+        "aboutText" to "Tiefsee 的非官方 Android 版本 — hbl917070 開發的開源圖片檢視器（MIT 授權）。",
+
+        "permTitle" to "檔案存取權限",
+        "permText" to "Tiefsee 需要存取所有檔案，才能瀏覽資料夾、切換同資料夾圖片、開啟壓縮檔、重新命名與刪除檔案。",
+        "permButton" to "授予權限",
+    )
+}
