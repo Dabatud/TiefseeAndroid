@@ -30,6 +30,8 @@ import com.tiefsee.android.data.Prefs
 import com.tiefsee.android.formats.Imaging
 import com.tiefsee.android.formats.Thumbs
 import com.tiefsee.android.meta.ImageSearch
+import com.tiefsee.android.meta.Metadata
+import com.tiefsee.android.util.aiBadge
 import com.tiefsee.android.util.Bg
 import com.tiefsee.android.util.Dialogs
 import com.tiefsee.android.util.I18n
@@ -87,6 +89,13 @@ class ViewerScreen(
         visibility = View.GONE
     }
 
+    /** Плашка «AI»: у картинки есть промпт / параметры генерации. Нажатие открывает инфо-панель. */
+    private val aiLabel: TextView = act.aiBadge().apply {
+        visibility = View.GONE
+        contentDescription = I18n.t("aiPrompt")
+        setOnClickListener { if (!infoOpen) toggleInfo() }
+    }
+
     private val infoWrap = FrameLayout(act)
     private val info = InfoPanel(act)
     private var infoOpen = false
@@ -113,6 +122,7 @@ class ViewerScreen(
         peek.visibility = View.GONE
         root.addView(peek, flp())
         root.addView(zoomLabel, flp(WRAP, WRAP, Gravity.CENTER))
+        root.addView(aiLabel, flp(WRAP, WRAP, Gravity.TOP or Gravity.START))
 
         zoom.onTap = { toggleUi() }
         zoom.onLongPress = {
@@ -236,6 +246,27 @@ class ViewerScreen(
         topBar.setPadding(left + act.dp(4), top, right + act.dp(4), 0)
         bottomBar.setPadding(left, 0, right, bottom)
         layoutInfo()
+        positionAi()
+    }
+
+    /** Под верхней панелью, а когда панели скрыты — у края экрана. */
+    private fun positionAi() {
+        val top = insets[0] + act.dp(10) + if (uiVisible) act.dp(56) else 0
+        (aiLabel.layoutParams as? FrameLayout.LayoutParams)?.let {
+            it.setMargins(insets[2] + act.dp(12), top, 0, 0)
+            aiLabel.layoutParams = it
+        }
+    }
+
+    private fun updateAi(f: File, gen: Int) {
+        aiLabel.visibility = View.GONE
+        if (!Prefs.showAiBadge || !Metadata.canHaveAi(f)) return
+        val cached = Metadata.cachedAi(f)
+        if (cached != null) {
+            if (cached) aiLabel.visibility = View.VISIBLE
+            return
+        }
+        Bg.run({ Metadata.hasAi(f) }) { ai -> if (gen == loadGen && ai) aiLabel.visibility = View.VISIBLE }
     }
 
     override fun onConfigChanged() = layoutInfo()
@@ -247,6 +278,7 @@ class ViewerScreen(
 
     private fun setUi(visible: Boolean) {
         uiVisible = visible
+        positionAi()
         for (v in listOf(topBar, bottomBar)) {
             v.animate().cancel()
             if (visible) {
@@ -291,6 +323,7 @@ class ViewerScreen(
         updateSubtitle(null)
         strip.select(index, !fromSwipe)
         if (infoOpen) info.show(f)
+        updateAi(f, gen)
 
         when (kind) {
             Kind.VIDEO -> { zoom.clear(); zoom.visibility = View.GONE; showVideo(f) }

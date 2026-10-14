@@ -148,6 +148,11 @@ object Prefs {
         return added
     }
 
+    /** Плашка «AI» на картинках с данными генерации. */
+    var showAiBadge: Boolean
+        get() = bool("aiBadge", true)
+        set(v) = putBool("aiBadge", v)
+
     /** Подсказка о жестах показана. */
     var hintShown: Boolean
         get() = bool("hintShown", false)

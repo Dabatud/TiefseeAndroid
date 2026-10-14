@@ -59,6 +59,20 @@ object AiParser {
         return null
     }
 
+    /** Быстрая проверка без полного разбора (для плашки «AI»). Условия совпадают с parse(). */
+    fun detect(texts: List<Pair<String, String>>): Boolean {
+        val map = HashMap<String, String>()
+        for ((k, v) in texts) map.putIfAbsent(k, v)
+        fun json(k: String) = map[k]?.trimStart()?.startsWith("{") == true
+        if (json("prompt") || json("workflow")) return true
+        val comment = map["Comment"]
+        if (comment != null && comment.trimStart().startsWith("{") &&
+            (map["Software"]?.contains("NovelAI") == true || comment.contains("\"uc\""))) return true
+        if (listOf("invokeai_metadata", "sd-metadata", "Dream", "invokeai_graph").any { !map[it].isNullOrBlank() }) return true
+        if (!map["parameters"].isNullOrBlank()) return true
+        return map["UserComment"]?.contains("Steps: ") == true
+    }
+
     // ---------- A1111 ----------
 
     fun a1111(text: String): List<AiField> {

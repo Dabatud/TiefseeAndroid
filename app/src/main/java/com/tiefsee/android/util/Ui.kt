@@ -196,3 +196,11 @@ object Bg {
 
 fun View.setBg(color: Int) = setBackgroundColor(color)
 fun colorDrawable(c: Int) = ColorDrawable(c)
+
+/** Полупрозрачная плашка «AI» в скруглённом прямоугольнике. */
+fun Context.aiBadge(small: Boolean = false): TextView = label("AI", if (small) 10f else 12f, android.graphics.Color.WHITE, bold = true).apply {
+    letterSpacing = 0.08f
+    gravity = Gravity.CENTER
+    setPadding(dp(if (small) 6 else 9), dp(if (small) 1 else 3), dp(if (small) 6 else 9), dp(if (small) 1 else 3))
+    background = rounded(0x8C000000.toInt(), dpf(if (small) 6f else 9f), 0x55FFFFFF, dp(1))
+}

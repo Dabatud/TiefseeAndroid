@@ -52,16 +52,7 @@ object Metadata {
                 val ll = FloatArray(2)
                 if (ex.getLatLong(ll)) gps = doubleArrayOf(ll[0].toDouble(), ll[1].toDouble())
 
-                userComment(ex)?.let { texts.add("UserComment" to it) }
-                for (tag in listOf(ExifInterface.TAG_IMAGE_DESCRIPTION, ExifInterface.TAG_MAKE, ExifInterface.TAG_MODEL)) {
-                    val v = ex.getAttribute(tag) ?: continue
-                    // ComfyUI сохраняет в WebP: Make = "workflow:{...}", Model = "prompt:{...}"
-                    when {
-                        v.startsWith("workflow:") -> texts.add("workflow" to v.removePrefix("workflow:"))
-                        v.startsWith("prompt:") -> texts.add("prompt" to v.removePrefix("prompt:"))
-                        tag == ExifInterface.TAG_IMAGE_DESCRIPTION && v.contains("Steps: ") -> texts.add("parameters" to v)
-                    }
-                }
+                exifTexts(ex, texts)
             } catch (_: Exception) {
             }
         }
@@ -74,6 +65,52 @@ object Metadata {
         val other = if (ai != null) texts.filter { it.first !in aiKeys } else texts
         return FileMeta(basic, exifList, gps, ai, other)
     }
+
+    /** Текстовые поля EXIF, где генераторы хранят промпты. */
+    private fun exifTexts(ex: ExifInterface, texts: MutableList<Pair<String, String>>) {
+        userComment(ex)?.let { texts.add("UserComment" to it) }
+        for (tag in listOf(ExifInterface.TAG_IMAGE_DESCRIPTION, ExifInterface.TAG_MAKE, ExifInterface.TAG_MODEL)) {
+            val v = ex.getAttribute(tag) ?: continue
+            // ComfyUI сохраняет в WebP: Make = "workflow:{...}", Model = "prompt:{...}"
+            when {
+                v.startsWith("workflow:") -> texts.add("workflow" to v.removePrefix("workflow:"))
+                v.startsWith("prompt:") -> texts.add("prompt" to v.removePrefix("prompt:"))
+                tag == ExifInterface.TAG_IMAGE_DESCRIPTION && v.contains("Steps: ") -> texts.add("parameters" to v)
+            }
+        }
+    }
+
+    private val aiCache = java.util.concurrent.ConcurrentHashMap<String, Boolean>()
+    private val aiExts = setOf("png", "apng", "jpg", "jpeg", "jfif", "webp", "heic", "heif", "avif")
+
+    /** Есть ли у файла данные генерации — для плашки «AI». Результат из кэша, если уже проверяли. */
+    fun cachedAi(file: File): Boolean? = aiCache[aiKey(file)]
+
+    fun canHaveAi(file: File) = FileTypes.ext(file.name) in aiExts
+
+    /** Вызывать в фоне. */
+    fun hasAi(file: File): Boolean {
+        val key = aiKey(file)
+        aiCache[key]?.let { return it }
+        val result = try {
+            val ext = FileTypes.ext(file.name)
+            val texts = ArrayList<Pair<String, String>>()
+            if (ext == "png" || ext == "apng") texts.addAll(pngText(file))
+            if (ext in aiExts) {
+                try { exifTexts(ExifInterface(file.absolutePath), texts) } catch (_: Exception) { }
+            }
+            if (ext == "jpg" || ext == "jpeg" || ext == "jfif") {
+                try { jpegComment(file)?.let { texts.add("Comment" to it) } } catch (_: Exception) { }
+            }
+            AiParser.detect(texts)
+        } catch (_: Exception) {
+            false
+        }
+        aiCache[key] = result
+        return result
+    }
+
+    private fun aiKey(f: File) = "${f.absolutePath}|${f.lastModified()}|${f.length()}"
 
     private val exifTags = listOf(
         ExifInterface.TAG_MAKE to "Make",

@@ -75,6 +75,7 @@ class SettingsScreen(act: MainActivity) : Screen(act) {
         }
         toggle(I18n.t("smoothing"), I18n.t("smoothingHint"), Prefs.smoothing) { Prefs.smoothing = it }
         toggle(I18n.t("fileStrip"), null, Prefs.showFileStrip) { Prefs.showFileStrip = it }
+        toggle(I18n.t("aiBadge"), I18n.t("aiBadgeHint"), Prefs.showAiBadge) { Prefs.showAiBadge = it }
         toggle(I18n.t("keepScreenOn"), null, Prefs.keepScreenOn) { Prefs.keepScreenOn = it }
         toggle(I18n.t("confirmDelete"), null, Prefs.confirmDelete) { Prefs.confirmDelete = it }
         choice(I18n.t("slideshowInterval"), listOf("2", "3", "4", "6", "10", "20"),

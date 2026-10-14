@@ -32,6 +32,8 @@ import com.tiefsee.android.data.Prefs
 import com.tiefsee.android.data.Storage
 import com.tiefsee.android.formats.Imaging
 import com.tiefsee.android.formats.Thumbs
+import com.tiefsee.android.meta.Metadata
+import com.tiefsee.android.util.aiBadge
 import com.tiefsee.android.util.Bg
 import com.tiefsee.android.util.Dialogs
 import com.tiefsee.android.util.I18n
@@ -225,6 +227,7 @@ class BrowserScreen(act: MainActivity, startDir: File, private val highlight: Fi
             setPadding(act.dp(5), act.dp(1), act.dp(5), act.dp(1))
             background = rounded(0x99000000.toInt(), act.dpf(6f))
         }
+        val ai: TextView = act.aiBadge(small = true).apply { visibility = View.GONE }
         var request: Thumbs.Request? = null
         var boundPath: String? = null
 
@@ -235,6 +238,7 @@ class BrowserScreen(act: MainActivity, startDir: File, private val highlight: Fi
             addView(image, flp())
             addView(folderBadge, flp(act.dp(22), act.dp(22), Gravity.TOP or Gravity.START).apply { setMargins(act.dp(6), act.dp(6), 0, 0) })
             addView(badge, flp(WRAP, WRAP, Gravity.TOP or Gravity.END).apply { setMargins(0, act.dp(6), act.dp(6), 0) })
+            addView(ai, flp(WRAP, WRAP, Gravity.TOP or Gravity.START).apply { setMargins(act.dp(6), act.dp(6), 0, 0) })
             addView(name, flp(MATCH, WRAP, Gravity.BOTTOM))
             foreground = ripple(null, act.dpf(8f))
         }
@@ -266,6 +270,7 @@ class BrowserScreen(act: MainActivity, startDir: File, private val highlight: Fi
         cell.image.setImageDrawable(null)
         cell.typeIcon.setImageDrawable(act.icon(FileTypes.iconName(e.kind), if (e.isDir) Palette.accent else Palette.textDim))
         cell.folderBadge.visibility = View.GONE
+        cell.ai.visibility = View.GONE
         val px = (cellSize() * 1.1f).toInt().coerceAtMost(act.dp(220))
 
         if (e.isDir) {
@@ -291,6 +296,22 @@ class BrowserScreen(act: MainActivity, startDir: File, private val highlight: Fi
         cell.badge.visibility = if (showBadge && ext.isNotEmpty()) View.VISIBLE else View.GONE
         if (e.kind == Kind.IMAGE || e.kind == Kind.VIDEO || e.kind == Kind.SPECIAL || e.kind == Kind.PDF) {
             loadThumb(cell, e.path, e.file, px, folder = false)
+        }
+        bindAi(cell, e)
+    }
+
+    /** Плашка «AI», если в файле есть промпт / параметры генерации. */
+    private fun bindAi(cell: Cell, e: Entry) {
+        if (!Prefs.showAiBadge || !Metadata.canHaveAi(e.file)) return
+        val cached = Metadata.cachedAi(e.file)
+        if (cached != null) {
+            cell.ai.visibility = if (cached) View.VISIBLE else View.GONE
+            return
+        }
+        Bg.io.execute {
+            if (cell.boundPath != e.path) return@execute
+            val ai = Metadata.hasAi(e.file)
+            if (ai) Bg.ui { if (cell.boundPath == e.path) cell.ai.visibility = View.VISIBLE }
         }
     }
 

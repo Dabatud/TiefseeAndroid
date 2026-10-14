@@ -11,7 +11,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.OverScroller
 import com.tiefsee.android.data.FileTypes
+import com.tiefsee.android.data.Prefs
 import com.tiefsee.android.formats.Thumbs
+import com.tiefsee.android.meta.Metadata
+import com.tiefsee.android.util.Bg
 import com.tiefsee.android.util.Palette
 import com.tiefsee.android.util.dp
 import com.tiefsee.android.util.icon
@@ -106,6 +109,7 @@ class ThumbStrip(ctx: Context) : View(ctx) {
                     it.draw(canvas)
                 }
             }
+            drawAi(canvas, f, left, top)
             if (i == selected) canvas.drawRoundRect(dst, r, r, border)
         }
         // Отменяем запросы для ушедших за экран
@@ -114,6 +118,32 @@ class ThumbStrip(ctx: Context) : View(ctx) {
             val e = it.next()
             if (e.key < first - 10 || e.key > last + 10) { e.value?.cancel(); it.remove() }
         }
+    }
+
+    private val aiChecks = HashSet<File>()
+    private val aiBg = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0x8C000000.toInt() }
+    private val aiText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = android.graphics.Color.WHITE
+        textSize = dp(9).toFloat()
+        typeface = android.graphics.Typeface.DEFAULT_BOLD
+        textAlign = Paint.Align.CENTER
+    }
+    private val aiRect = RectF()
+
+    /** Маленькая плашка «AI» в углу миниатюры. */
+    private fun drawAi(canvas: Canvas, f: File, left: Float, top: Float) {
+        if (!Prefs.showAiBadge || !Metadata.canHaveAi(f)) return
+        val ai = Metadata.cachedAi(f)
+        if (ai == null) {
+            if (aiChecks.add(f)) Bg.io.execute { if (Metadata.hasAi(f)) post { invalidate() } }
+            return
+        }
+        if (!ai) return
+        val w = dp(18).toFloat()
+        val h = dp(12).toFloat()
+        aiRect.set(left + dp(3), top + dp(3), left + dp(3) + w, top + dp(3) + h)
+        canvas.drawRoundRect(aiRect, dp(4).toFloat(), dp(4).toFloat(), aiBg)
+        canvas.drawText("AI", aiRect.centerX(), aiRect.centerY() - (aiText.descent() + aiText.ascent()) / 2, aiText)
     }
 
     private fun drawCrop(canvas: Canvas, bmp: Bitmap) {
